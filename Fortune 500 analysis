@@ -1,0 +1,23 @@
+--Which industries averages the most PTO days
+
+SELECT industry, AVG(paid_time_off_days)
+FROM fortune_companies
+GROUP BY 1
+ORDER BY 2 DESC;
+
+--Which industries have employee tenure of over 5years and over 4 years, how many companies in each category
+
+SELECT industry, tenure_conso, COUNT(industry) AS number_of_companies
+FROM(
+SELECT company_name, industry, avg_employee_tenure,
+CASE WHEN avg_employee_tenure >5 THEN "over 5 years"
+WHEN avg_employee_tenure > 4 THEN "over 4 years"
+ELSE "under 4 years" END AS tenure_conso
+FROM fortune_companies)
+GROUP BY 1
+ORDER BY 3 DESC;
+
+--Which companies' revenue is under 200M and employees under 100000
+SELECT * 
+FROM fortune_companies
+WHERE revenue < 200 AND employees <100000;
